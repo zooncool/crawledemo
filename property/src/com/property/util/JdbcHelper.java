@@ -34,7 +34,7 @@ public class JdbcHelper {
 		try {
 			st = conn.createStatement();
 			if(null!=resultItems.get("title") && !"".equals(resultItems.get("title"))){
-				String sql = "insert into gz_second_house(`property`,`area`,`section`,`address`,`layout`,`price`,`average_price`,`contact`,`identity`,`phone`,`website`) values("
+				String sql = "insert into gz_second_house(`property`,`area`,`section`,`address`,`layout`,`price`,`average_price`,`contact`,`identity`,`phone`,`website`,`atime`) values("
 						+ "'"+resultItems.get("property")+"',"
 						+ "'"+resultItems.get("area")+"',"
 						+ "'"+resultItems.get("section")+"',"
@@ -45,7 +45,8 @@ public class JdbcHelper {
 						+ "'"+resultItems.get("contact")+"',"
 						+ "'"+resultItems.get("identity")+"',"
 						+ "'"+resultItems.get("phone")+"',"
-						+ "'"+resultItems.get("website")+"'"
+						+ "'"+resultItems.get("website")+"',"
+						+ "'"+resultItems.get("atime")+"'"
 								+ ")";
 				st.execute(sql);
 			}
