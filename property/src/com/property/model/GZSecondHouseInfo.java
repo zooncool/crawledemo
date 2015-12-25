@@ -193,5 +193,7 @@ public class GZSecondHouseInfo implements AfterExtractor {
 
 	@Override
     public void afterProcess(Page page) {
+		
+//		save();
     }
 }
