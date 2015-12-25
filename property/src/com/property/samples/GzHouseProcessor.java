@@ -1,5 +1,8 @@
 package com.property.samples;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.property.util.JdbcHelper;
 
 import us.codecraft.webmagic.Page;
@@ -7,7 +10,6 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.Task;
-import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
@@ -15,6 +17,7 @@ public class GzHouseProcessor implements PageProcessor{
 
 	public static final String URL_LIST = "http://gz\\.58\\.com/ershoufang/[pn\\d+/]*\\?PGTID=\\d+&ClickID=\\d+";
 	public static final String URL_POST = "http://gz\\.58\\.com/ershoufang/\\d+x\\.shtml\\?psid=\\d+\\&entinfo=\\d+_0";
+	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Site site = Site
             .me()
             .setDomain("gz.58.com")
@@ -24,6 +27,8 @@ public class GzHouseProcessor implements PageProcessor{
 
     @Override
     public void process(Page page) {
+    	
+    	
         //列表页
         if (page.getUrl().regex(URL_LIST).match()) {
             page.addTargetRequests(page.getHtml().xpath("//div[@id=\"infolist\"]").links().regex(URL_POST).all());
@@ -42,6 +47,7 @@ public class GzHouseProcessor implements PageProcessor{
             page.putField("identity", page.getHtml().xpath("//ul[@class='suUl']/li[8]/div[@class='su_con']/span/em/text()"));
             page.putField("phone", page.getHtml().xpath("//ul[@class='suUl']/li[9]//div[@class='su_phone']/span/text()"));
             page.putField("website", page.getUrl());
+            page.putField("atime", sdf.format(new Date()));
         }
     }
 
